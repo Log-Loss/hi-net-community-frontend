@@ -1,4 +1,5 @@
 import { queryFakeList } from '../services/api';
+import { fetchAllPost, fetchCommentsById } from "../services/post";
 
 export default {
   namespace: 'list',
@@ -9,7 +10,15 @@ export default {
 
   effects: {
     *fetch({ payload }, { call, put }) {
-      const response = yield call(queryFakeList, payload);
+      const response = yield call(fetchAllPost, payload);
+      yield put({
+        type: 'queryList',
+        payload: Array.isArray(response) ? response : [],
+      });
+    },
+    *fetchComments({ payload }, { call, put }) {
+      console.log(payload);
+      const response = yield call(fetchCommentsById, payload);
       yield put({
         type: 'queryList',
         payload: Array.isArray(response) ? response : [],

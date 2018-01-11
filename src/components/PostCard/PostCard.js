@@ -8,7 +8,6 @@ const { Meta } = Card;
 export class PostCard extends Component {
   render() {
     const { post, loading } = this.props;
-    console.log(post);
     return (
       <Card
         loading={loading}
@@ -17,7 +16,7 @@ export class PostCard extends Component {
         actions={[<Icon type="like" />,  <Link to="/dashboard/monitor"><Icon type="edit" /></Link>]} >
         <Meta
           avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-          title={post["title"]}
+          title={<Link to={`/post/${post.postId}`}>{post.title}</Link>}
           description={post.content}
         />
       </Card>

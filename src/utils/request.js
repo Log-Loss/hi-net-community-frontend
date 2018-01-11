@@ -42,7 +42,7 @@ function checkStatus(response) {
  */
 export default function request(url, options) {
   const defaultOptions = {
-    credentials: 'include',
+    credentials: 'same-origin',
   };
   const newOptions = { ...defaultOptions, ...options };
   if (newOptions.method === 'POST' || newOptions.method === 'PUT') {
@@ -58,6 +58,9 @@ export default function request(url, options) {
     .then(checkStatus)
     .then((response) => {
       if (newOptions.method === 'DELETE' || response.status === 204) {
+        return response.text();
+      }
+      if (newOptions.method === 'POST' || newOptions.method === 'UPDATE' || response.status === 204) {
         return response.text();
       }
       return response.json();

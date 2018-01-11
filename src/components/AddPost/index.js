@@ -41,6 +41,7 @@ export class AddPost extends Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
+        values.userId = "licor";
         this.props.dispatch({
           type: 'form/submitRegularForm',
           payload: values,

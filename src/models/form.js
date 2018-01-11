@@ -1,6 +1,7 @@
 import { routerRedux } from 'dva/router';
 import { message } from 'antd';
 import { fakeSubmitForm } from '../services/api';
+import { submitPost } from "../services/post";
 
 export default {
   namespace: 'form',
@@ -16,7 +17,7 @@ export default {
 
   effects: {
     *submitRegularForm({ payload }, { call }) {
-      yield call(fakeSubmitForm, payload);
+      yield call(submitPost, payload);
       message.success('Add Post Success');
     },
     *submitStepForm({ payload }, { call, put }) {

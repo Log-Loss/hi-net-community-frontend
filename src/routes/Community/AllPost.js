@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'dva';
 import {
   Row,
@@ -11,7 +10,7 @@ import {
 } from 'antd';
 import { AddPost } from '../../components/AddPost';
 import { PostCard } from "../../components/PostCard/PostCard";
-import styles from './Analysis.less';
+import styles from './AllPost.less';
 
 const { Meta } = Card;
 
@@ -20,7 +19,7 @@ const { Meta } = Card;
   list,
   loading: loading.models.list,
 }))
-export default class Analysis extends Component {
+export default class AllPost extends Component {
   state = {
 
   };
@@ -42,15 +41,6 @@ export default class Analysis extends Component {
   }
 
   render() {
-    const topColResponsiveProps = {
-      xs: 24,
-      sm: 12,
-      md: 12,
-      lg: 12,
-      xl: 6,
-      style: { marginBottom: 24 },
-    };
-
     const { list: { list }, loading } = this.props;
     console.log(list);
 
@@ -67,8 +57,8 @@ export default class Analysis extends Component {
             ) : (
               <List.Item>
                 <Card
-                    bordered={false}
-                    hoverable
+                  bordered={false}
+                  hoverable
                 >
                   <Row align="middle">
                     <Col align="center">

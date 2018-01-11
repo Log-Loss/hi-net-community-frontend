@@ -1,8 +1,8 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Row, Col, Card, Avatar, List, Icon, Input, Button } from 'antd';
 import Authorized from '../../utils/Authorized';
-import styles from './Monitor.less';
+import styles from './PostDetail.less';
 
 const { Secured } = Authorized;
 const { Meta } = Card;
@@ -10,23 +10,34 @@ const { TextArea } = Input;
 
 
 @Secured('admin')
+@connect(({ item, loading }) => ({
+  item,
+  loading: loading.models.item,
+}))
 @connect(({ list, loading }) => ({
   list,
   loading: loading.models.list,
 }))
-export default class Monitor extends PureComponent {
+export default class PostDetail extends Component {
+
   componentDidMount() {
     this.props.dispatch({
-      type: 'list/fetch',
+      type: 'item/fetch',
       payload: {
-        count: 5,
+        postId: 'Yqh4LIgX7k',
+      },
+    });
+    this.props.dispatch({
+      type: 'list/fetchComments',
+      payload: {
+        postId: 'Yqh4LIgX7k',
       },
     });
   }
 
   render() {
     const { list: { list }, loading } = this.props;
-
+    console.log(this.props);
     return (
       <div>
         <Row>
@@ -54,16 +65,16 @@ export default class Monitor extends PureComponent {
           renderItem={item =>( item? (
               <List.Item key={item.id} >
                 <Col span={16} offset={4}>
-                <Card
-                  loading={loading}
-                  bordered={false}
-                >
-                  <Meta
-                    avatar={<Avatar src={item.avatar} />}
-                    title={item.title}
-                    description={item.description}
-                  />
-                </Card>
+                  <Card
+                    loading={loading}
+                    bordered={false}
+                  >
+                    <Meta
+                      avatar={<Avatar src={item.avatar} />}
+                      title={item.title}
+                      description={item.description}
+                    />
+                  </Card>
                 </Col>
               </List.Item>
             ) : (<div></div>)
